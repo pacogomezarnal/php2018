@@ -26,10 +26,15 @@ function peticion() {
         return false;
     }
 
-    //Lanzamos la peticion
+    //Lanzamos la peticion GET
     http_request.onreadystatechange = capturamosCambios;
-    http_request.open('GET', "http://localhost/1daw/cursoPHP/eventosAjaxJSON/php/peticion.php", true);
-    http_request.send(null);
+    //http_request.open('GET', "http://localhost/1daw/cursoPHP/eventosAjaxJSON/php/peticion.php", true);
+    //http_request.send(null);
+    //Lanzamos la peticion POST
+    http_request.open('POST', "http://localhost/1daw/cursoPHP/eventosAjaxJSON/php/peticionPost.php", true);
+    http_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    postData="nombre=paco";
+    http_request.send(postData);
 
 }
 
@@ -38,9 +43,9 @@ function capturamosCambios() {
     if (http_request.readyState == 4) {
         if (http_request.status == 200) {
             //OK en la respuesta. Convertimos el JSON a un array
-            var miInfo=JSON.parse(http_request.responseText);
-            alert(miInfo["nombre"]);
-            console.log(miInfo);
+            //var miInfo=JSON.parse(http_request.responseText);
+            //alert(miInfo["nombre"]);
+            console.log(http_request.responseText);
         } else {
             alert('Hubo problemas con la petición.');
         }
